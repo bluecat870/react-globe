@@ -50,11 +50,11 @@ var locationData = [
     { "country": "Switzerland", "cord": [8.22, 46.8, 10], "project": "Traccy AG" }, 
     { "country": "Switzerland", "cord": [8.22, 46.8, 10], "project": "Traccy Connect" }, 
     { "country": "DRC Congo", "cord": [21.75, 4.0, 10], "project": "Traccy Solar" }, 
-    { "country": "Indonesia(jakarta)", "cord": [21.75, 4.0, 10], "project": "Lynx VR" }, 
-    { "country": "Indonesia(Semarang)", "cord": [21.75, 4.0, 10], "project": "Green Protocol" }, 
-    { "country": "Indonesia(Megalang)", "cord": [21.75, 4.0, 10], "project": "DecentaCity" }, 
+    { "country": "Indonesia(jakarta)", "cord": [106.8, 6.2, 10], "project": "Lynx VR" }, 
+    { "country": "Indonesia(Semarang)", "cord": [110.4, 7, 10], "project": "Green Protocol" }, 
+    { "country": "Indonesia(Megalang)", "cord": [110.2, 7.4, 10], "project": "DecentaCity" }, 
     { "country": "DRC Congo", "cord": [21.75, 4.0, 10], "project": "Tomato Project" }, 
-    { "country": "Indonesia(jakarta)", "cord": [21.75, 4.0, 10], "project": "Mosquito Solution"}
+    { "country": "Indonesia(jakarta)", "cord": [106.8, 6.2, 10], "project": "Mosquito Solution"}
 ];
 
 function locationToData(cord, country, project, index) {

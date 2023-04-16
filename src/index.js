@@ -5,11 +5,11 @@ import "./index.css"
 
 function App() {
   const [globe, setGlobe] = useState();
-  console.log(globe)
   useEffect(() => {
     if(globe)
     globe.isLocked = true;
   }, [globe])
+  
   const [zoom, setZoom] = useState(false);
   const handleZoomIn = () => {
     const globe = document.getElementById("globe-wrapper");
@@ -87,22 +87,40 @@ function App() {
     window.addEventListener("scroll", handleScroll, { capture: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, [])
+  const handleMarkerTouchEnd = (marker) => {
+    console.log(`Marker ${marker.id} touched`);
+  };
 
   const markers = [
-    { country: "Switzerland", coordinates: [46.8, 8.22], project: "Traccy AG", id: "0", value: 1 },
-    { country: "Switzerland", coordinates: [46.8, 8.22], project: "Traccy Connect", id: "1", value: 1 },
-    { country: "DRC Congo", coordinates: [4.0, 21.75], project: "Traccy Solar", id: "2", value: 1 },
-    { country: "Indonesia(jakarta)", coordinates: [6.2, 106.8], project: "Lynx VR", id: "3", value: 1 },
-    { country: "Indonesia(Semarang)", coordinates: [7, 110.4], project: "Green Protocol", id: "4", value: 1 },
-    { country: "Indonesia(Megalang)", coordinates: [7.4, 110.2], project: "DecentaCity", id: "5", value: 1 },
-    { country: "DRC Congo", coordinates: [4.0, 21.75], project: "Tomato Project", id: "6", value: 1 },
-    { country: "Indonesia(jakarta)", coordinates: [6.2, 106.8], project: "Mosquito Solution", id: "7", value: 1 }
+    {
+      country: "Switzerland", coordinates: [46.8, 8.22], project: "Traccy AG", id: "0", value: 1
+    },
+    {
+      country: "Switzerland", coordinates: [46.8, 8.22], project: "Traccy Connect", id: "1", value: 1
+    },
+    {
+      country: "DRC Congo", coordinates: [4.0, 21.75], project: "Traccy Solar", id: "2", value: 1
+    },
+    {
+      country: "Indonesia(jakarta)", coordinates: [6.2, 106.8], project: "Lynx VR", id: "3", value: 1
+    },
+    {
+      country: "Indonesia(Semarang)", coordinates: [7, 110.4], project: "Green Protocol", id: "4", value: 1
+    },
+    {
+      country: "Indonesia(Megalang)", coordinates: [7.4, 110.2], project: "DecentaCity", id: "5", value: 1
+    },
+    {
+      country: "DRC Congo", coordinates: [4.0, 21.75], project: "Tomato Project", id: "6", value: 1
+    },
+    {
+      country: "Indonesia(jakarta)", coordinates: [6.2, 106.8], project: "Mosquito Solution", id: "7", value: 1
+    }
   ];
 
   const [currentMaker, setCurrentMaker] = useState(markers[0]);
 
   function onMouseOverMarker(previousMarker, markerObject, event) {
-console.log(previousMarker)
     if (zoom && (!currentMaker || currentMaker.id != previousMarker.id)) {
       setCurrentMaker(previousMarker);
       const tooltip = document.getElementById("tooltip");
@@ -156,6 +174,7 @@ console.log(previousMarker)
           onMouseOverMarker={onMouseOverMarker}
           onClickMarker={onMouseOverMarker}
           onGetGlobe={setGlobe}
+          onTouchEnd ={onMouseOverMarker}
         />
       </div>
       <div class="button-wrapper" id="button-wrapper">
