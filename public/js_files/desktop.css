@@ -487,14 +487,6 @@ Canvas
 #root {
   display: none;
 }
-@media only screen and (max-width: 767px) {
-  #desktop {
-    display: none;
-  }
-  #root {
-    display: block;
-  }
-}
 
 canvas#globekit-canvas {
   position: fixed;
