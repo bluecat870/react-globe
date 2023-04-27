@@ -59,10 +59,14 @@ GK.BackgroundDrawable = function () {
     mat4.identity(this.modelMatrix);
 
     var texture1 = null;
+    var texture2 = null;
+    var texture3 = null;
 
     this.init = function () {
         this.program = GK.ProgramManager.create(vertex, fragment);
-        texture1 = GK.TextureManager.loadTexture(imgData2, true, gl.CLAMP_TO_EDGE, gl.CLAMP_TO_EDGE);
+        texture1 = GK.TextureManager.loadTexture(imgData1, true, gl.CLAMP_TO_EDGE, gl.CLAMP_TO_EDGE);
+        texture2 = GK.TextureManager.loadTexture(imgData2, true, gl.CLAMP_TO_EDGE, gl.CLAMP_TO_EDGE);
+        texture3 = GK.TextureManager.loadTexture(imgData3, true, gl.CLAMP_TO_EDGE, gl.CLAMP_TO_EDGE);
         return this;
     }
 
@@ -83,21 +87,30 @@ GK.BackgroundDrawable = function () {
     }
 
     this.draw = function (camera, time) {
-        if (!texture1.loaded) return;
+        if (!texture1.loaded || !texture2.loaded) return;
         gl.useProgram(this.program.name);
 
         this.lightDir = vec3.fromValues(-3.0, Math.sin(time * 0.001) * 2.0, Math.cos(time * 0.0008) * 4.0);
 
-        gl.uniformMatrix4fv(this.program.uniforms.uPMatrix, false, camera.perspectiveMatrix); 
-        const model=[100000, 0, 0, 0, 0, 1.28, 0, 0, 0, 0, 1, 0, 0, 0, -15, 1]      
-        gl.uniformMatrix4fv(this.program.uniforms.uMVMatrix, false, model);
-        // gl.uniformMatrix4fv(this.program.uniforms.uMVMatrix, false, this.modelMatrix);
+        gl.uniformMatrix4fv(this.program.uniforms.uPMatrix, false, camera.perspectiveMatrix);
+
+        if(Site.isMobile && Site.isCollapse){
+            const model=[100000, 0, 0, 0, 0, 1.28, 0, 0, 0, 0, 1, 0, 0, 0, -15, 1]      
+            gl.uniformMatrix4fv(this.program.uniforms.uMVMatrix, false, model);
+        } else
+            gl.uniformMatrix4fv(this.program.uniforms.uMVMatrix, false, this.modelMatrix);
 
         gl.uniform3fv(this.program.uniforms.uLightDir, this.lightDir);
         gl.uniform1f(this.program.uniforms.uAlpha, this.alpha);
 
         gl.activeTexture(gl.TEXTURE0);
-        gl.bindTexture(gl.TEXTURE_2D, texture1);
+        if(Site.isMobile && Site.isCollapse)
+            gl.bindTexture(gl.TEXTURE_2D, texture2);
+        else if(Site.isMobile && !Site.isCollapse)
+            gl.bindTexture(gl.TEXTURE_2D, texture3);
+        else
+            gl.bindTexture(gl.TEXTURE_2D, texture1);
+
         gl.uniform1i(this.program.uniforms.uSampler, 0);
 
         gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer);
@@ -106,9 +119,9 @@ GK.BackgroundDrawable = function () {
         gl.vertexAttribPointer(this.program.attributes.aNormal, 3, gl.FLOAT, false, 32, 0);
         gl.vertexAttribPointer(this.program.attributes.aTexture, 2, gl.FLOAT, false, 32, 24);
 
-        // gl.enableVertexAttribArray(this.program.attributes.aPosition);
-        // gl.enableVertexAttribArray(this.program.attributes.aNormal);
-        // gl.enableVertexAttribArray(this.program.attributes.aTexture);
+        gl.enableVertexAttribArray(this.program.attributes.aPosition);
+        gl.enableVertexAttribArray(this.program.attributes.aNormal);
+        gl.enableVertexAttribArray(this.program.attributes.aTexture);
 
         gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, indexBuffer);
         gl.drawElements(gl.TRIANGLES, indexCount, gl.UNSIGNED_SHORT, 0);

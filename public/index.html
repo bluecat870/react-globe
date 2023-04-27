@@ -70,6 +70,7 @@
     <script src="./js_files/ProjectionUtil.js"></script>
     <script src="./js_files/back1.js"></script>
     <script src="./js_files/back2.js"></script>
+    <script src="./js_files/back3.js"></script>
 
     <script src="./js_files/Animation.js"></script>
     <script src="./js_files/Ease.js"></script>
@@ -133,11 +134,7 @@
           top: 5.18vh;
           left: 23vh;
         }
-        @media screen and (max-width: 766px) {
-          .gauge-svg {
-            display: none;
-          }
-        }
+
         .gauge-path {
           stroke-width: 0.6px;
           stroke-dasharray: 1028;
@@ -627,7 +624,7 @@
         </a>
       </div>
     </div>
-    <div id="root"> </div>
+    <div id="root"></div>
     <script>
       Site.init();
 
@@ -712,23 +709,41 @@
       jQuery(window).resize(function () {
         setTimeout(function () {
           let box = document.querySelector("#globekit-canvas");
-          let width = box.width - 10;
-          let height = box.height - 10;
-
-          let svg_id_var = document.querySelector("#svg_id");
-          svg_id_var.style.height = height + "px";
-          svg_id_var.style.width = width + "px";
+          if (Site.isMobile && Site.isCollapse) {
+            let width = box.width;
+            let height = box.height;
+            let svg_id_var = document.querySelector("#svg_id");
+            svg_id_var.style.height = width + "px !important";
+            svg_id_var.style.width = width + "px !important";
+console.log(width, height)
+          } else {
+            let width = box.width - 10;
+            let height = box.height - 10;
+  console.log(width, height)
+            let svg_id_var = document.querySelector("#svg_id");
+            svg_id_var.style.height = height + "px";
+            svg_id_var.style.width = width + "px";
+          }
         }, 500);
       });
 
       setTimeout(function () {
         let box = document.querySelector("#globekit-canvas");
-        let width = box.width - 10;
-        let height = box.height - 10;
-
-        let svg_id_var = document.querySelector("#svg_id");
-        svg_id_var.style.height = height + "px";
-        svg_id_var.style.width = width + "px";
+        if (Site.isMobile && Site.isCollapse) {
+          let width = box.width;
+          let height = box.height;
+          let svg_id_var = document.querySelector("#svg_id");
+          svg_id_var.style.height = width + "px !important";
+          svg_id_var.style.width = width + "px !important";
+console.log(width, height)
+        } else {
+          let width = box.width - 10;
+          let height = box.height - 10;
+console.log(width, height)
+          let svg_id_var = document.querySelector("#svg_id");
+          svg_id_var.style.height = height + "px";
+          svg_id_var.style.width = width + "px";
+        }
       }, 500);
     });
   </script>
