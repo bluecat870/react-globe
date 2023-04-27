@@ -105,11 +105,11 @@ GK.BackgroundDrawable = function () {
 
         gl.activeTexture(gl.TEXTURE0);
         // if(Site.isMobile && Site.isCollapse)
-            gl.bindTexture(gl.TEXTURE_2D, texture2);
+            // gl.bindTexture(gl.TEXTURE_2D, texture2);
         // else if(Site.isMobile && !Site.isCollapse)
             // gl.bindTexture(gl.TEXTURE_2D, texture3);
         // else
-            // gl.bindTexture(gl.TEXTURE_2D, texture1);
+            gl.bindTexture(gl.TEXTURE_2D, texture1);
 
         gl.uniform1i(this.program.uniforms.uSampler, 0);
 
