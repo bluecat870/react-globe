@@ -94,22 +94,22 @@ GK.BackgroundDrawable = function () {
 
         gl.uniformMatrix4fv(this.program.uniforms.uPMatrix, false, camera.perspectiveMatrix);
 
-        if(Site.isMobile && Site.isCollapse){
-            const model=[100000, 0, 0, 0, 0, 1.28, 0, 0, 0, 0, 1, 0, 0, 0, -15, 1]      
-            gl.uniformMatrix4fv(this.program.uniforms.uMVMatrix, false, model);
-        } else
+        // if(Site.isMobile && Site.isCollapse){
+            // const model=[100000, 0, 0, 0, 0, 1.28, 0, 0, 0, 0, 1, 0, 0, 0, -15, 1]      
+            // gl.uniformMatrix4fv(this.program.uniforms.uMVMatrix, false, model);
+        // } else
             gl.uniformMatrix4fv(this.program.uniforms.uMVMatrix, false, this.modelMatrix);
 
         gl.uniform3fv(this.program.uniforms.uLightDir, this.lightDir);
         gl.uniform1f(this.program.uniforms.uAlpha, this.alpha);
 
         gl.activeTexture(gl.TEXTURE0);
-        if(Site.isMobile && Site.isCollapse)
+        // if(Site.isMobile && Site.isCollapse)
             gl.bindTexture(gl.TEXTURE_2D, texture2);
-        else if(Site.isMobile && !Site.isCollapse)
-            gl.bindTexture(gl.TEXTURE_2D, texture3);
-        else
-            gl.bindTexture(gl.TEXTURE_2D, texture1);
+        // else if(Site.isMobile && !Site.isCollapse)
+            // gl.bindTexture(gl.TEXTURE_2D, texture3);
+        // else
+            // gl.bindTexture(gl.TEXTURE_2D, texture1);
 
         gl.uniform1i(this.program.uniforms.uSampler, 0);
 
